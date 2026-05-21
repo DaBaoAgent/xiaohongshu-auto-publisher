@@ -1,0 +1,4 @@
+xhs>=1.1.0
+Pillow>=9.0.0
+torch>=2.0.0
+transformers>=4.30.0
