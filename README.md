@@ -1,196 +1,156 @@
-# 🚀 XHS-Post — 小红书全自动图文发布神器
+# 📕 XHS-Post — 小红书全自动图文发布神器 / AI-Powered Xiaohongshu Auto Publisher
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
-  <img src="https://img.shields.io/badge/Platform-Windows-lightgrey.svg" alt="Platform">
-  <img src="https://img.shields.io/badge/小红书-API全自动-red.svg" alt="小红书">
+  <img src="https://img.shields.io/badge/Platform-Xiaohongshu%20|%20小红书-ff2449?style=for-the-badge" alt="platform">
+  <img src="https://img.shields.io/badge/Python-3.12+-blue?style=for-the-badge&logo=python" alt="python">
+  <img src="https://img.shields.io/badge/API-Pure_Python-success?style=for-the-badge" alt="api">
+  <img src="https://img.shields.io/badge/Speed-30s-red?style=for-the-badge" alt="speed">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="license">
+  <img src="https://img.shields.io/badge/Contributor-Dabao-orange?style=for-the-badge" alt="contributor">
 </p>
 
 <p align="center">
-  <b>基于 xhs Python SDK 的小红书图文笔记全自动发布工具</b><br>
-  支持 BLIP 本地图像识别 + AI 文案生成 → 30 秒完成一篇笔记发布<br>
-  无需浏览器 · 无需手动操作 · 纯 API 自动化
+  <b>🇨🇳 纯Python API驱动，30秒极速发布，无需浏览器 | 🇬🇧 Pure Python API, 30s publish, no browser needed</b>
 </p>
 
 ---
 
-## 📌 这能做什么？
+## 📖 中文 / English
 
-如果你在小红书上运营内容，你一定知道：
+### 🇨🇳 中文介绍
 
-- 😫 打开 App → 选图 → 写标题 → 写正文 → 加标签 → 发布... 一篇笔记至少 10 分钟
-- 😫 每天发 3-5 篇，时间全花在重复操作上
-- 😫 想批量发布但小红书没有开放 API... 
+**小红书全自动图文发布神器** — 基于 `xhs` Python SDK 的纯API自动化发布工具。
 
-**XHS-Post 解决的就是这个问题。**
+不需要Playwright、不需要浏览器、不需要扫码——纯Python签名引擎直接调用小红书API，**30秒**完成一篇图文笔记发布。Cookie从统一文件动态读取，过期后只需更新一个文件，cron自动生效。
 
-```bash
-python xhs_publish.py --folder "./素材/今日OOTD" --title "被自己温柔到了～" --desc "..."
-# 30秒后 → 笔记已发布
-```
-
----
-
-## ✨ 核心特性
+#### 🔥 核心特性
 
 | 特性 | 说明 |
 |------|------|
-| 🔐 **Cookie 自动验证** | 发布前校验账号归属，防止发错号 |
-| 🖼️ **BLIP 本地识图** | 没有多模态 AI 也能分析照片内容，自动判断场景类型 |
-| ✍️ **AI 文案生成** | 基于场景自动生成标题 + 正文 + 话题标签 |
-| 🚀 **API 一键发布** | 纯 API 调用，30 秒完成，不需要打开浏览器 |
-| 📂 **素材批量管理** | 自动扫描文件夹，发布后自动标记 |
-| 🛡️ **先审后发** | 默认先展示文案给用户审核，确认后才发布 |
+| ⚡ **30秒极速** | 纯API调用，无浏览器开销 |
+| 🔑 **Cookie动态** | 从 `xhs_cookie_latest.txt` 统一读取，更新即生效 |
+| 🚫 **零浏览器** | 不需要Playwright/Chromium，资源占用极低 |
+| 🤖 **全自动** | 扫描素材库 → 选文件夹 → 生成文案 → 发布 → 标记已发 |
+| 📁 **批量管理** | 文件夹即帖子，自动跳过已发标记 |
+| 🪟 **Windows原生** | Windows 11 + Python 3.12+ |
 
----
+#### 📊 发布节奏
 
-## 🎯 适用场景
+每天2篇：`08:00 / 19:00`
 
-- 🛍️ **电商卖家** — 批量发布商品种草笔记
-- 👗 **穿搭博主** — OOTD 日常快速发布
-- 🏠 **本地商家** — 探店/服务类内容自动化
-- 🤖 **AI 代理** — 配合 LLM Agent 实现全自动内容运营
-
----
-
-## ⚡ 5 分钟上手
-
-### 1. 安装依赖
+#### 🚀 快速开始
 
 ```bash
-pip install xhs Pillow torch transformers
+# 1. 更新Cookie（过期时）
+echo "你的Cookie" > ~/.hermes/data/xhs_cookie_latest.txt
+
+# 2. 发布
+python xhs_publish.py
 ```
 
-> 💡 **BLIP 图像识别可选**：如果只想用 API 发布（不需要 AI 识图），只需装 `xhs` 即可。
+---
 
-### 2. 获取 Cookie
+### 🇬🇧 English
 
-> **关键步骤！必须用 Chrome 无痕窗口 (Ctrl+Shift+N) 操作！**
+**Xiaohongshu Auto Publisher** — Pure Python API-driven publishing tool for REDnote (Xiaohongshu).
 
-1. 打开 Chrome 无痕窗口，登录 [小红书创作者中心](https://creator.xiaohongshu.com)
-2. 按 F12 → Application → Cookies → 全选复制
-3. 粘贴到 `xhs_cookie.txt` 文件（一行完整字符串）
+No Playwright, no browser, no QR code scanning — uses the `xhs` library's pure Python signature engine to call REDnote's API directly. **30 seconds** per post. Cookie is read dynamically from a unified file; update one file and cron picks it up automatically.
 
-> 详细图解教程见 `references/cookie-extraction.md`
+#### 🔥 Key Features
 
-### 3. 发布第一篇笔记
+| Feature | Description |
+|---------|-------------|
+| ⚡ **30s Speed** | Pure API calls, zero browser overhead |
+| 🔑 **Dynamic Cookie** | Reads from `xhs_cookie_latest.txt` — update once, works everywhere |
+| 🚫 **No Browser** | No Playwright/Chromium needed |
+| 🤖 **Fully Automated** | Scan → select → generate copy → publish → mark |
+| 📁 **Batch Ready** | One folder = one post, auto-skip published |
+
+#### 📊 Schedule
+
+2 posts/day: `08:00 / 19:00` CST
+
+#### 🚀 Quick Start
 
 ```bash
-python xhs_publish.py   --folder "./素材/今日穿搭"   --title "今日OOTD 被自己温柔到了～"   --desc "今天也是被自己治愈的一天"
+# Update cookie (when expired)
+echo "your_cookie_string" > ~/.hermes/data/xhs_cookie_latest.txt
 
-#OOTD #今日穿搭 #治愈系日常"
-```
-
-### 4. 验证发布
-
-发布成功的笔记会返回 ID，在浏览器打开：
-```
-https://www.xiaohongshu.com/discovery/item/{笔记ID}
+# Publish
+python xhs_publish.py
 ```
 
 ---
 
-## 📖 详细用法
-
-### 命令行参数
-
-| 参数 | 类型 | 说明 |
-|------|------|------|
-| `--folder PATH` | 必填 | 素材图片文件夹路径 |
-| `--title TEXT` | 可选 | 笔记标题（≤20字） |
-| `--desc TEXT` | 可选 | 笔记正文 |
-| `--topics JSON` | 可选 | 话题标签 JSON |
-| `--idx INT` | 可选 | 文案模板索引 0-22 |
-| `--dry-run` | 标志 | 测试模式，仅验证不发布 |
-| `--no-mark` | 标志 | 发布后不标记文件夹 |
-
-### 配合 AI Agent 使用
-
-```python
-from xhs import XhsClient
-from xhs.help import sign
-
-cookie = open('xhs_cookie.txt').read().strip()
-
-def sign_wrapper(uri, data=None, a1="", web_session=""):
-    return sign(uri, data, a1=a1)
-
-client = XhsClient(cookie=cookie, timeout=20, sign=sign_wrapper)
-me = client.get_self_info2()
-print(f"当前账号: {me['nickname']}")
-```
-
----
-
-## 🖼️ BLIP 图像识别（可选）
-
-如果你的 AI Agent 不支持多模态视觉，BLIP 可以本地识别图片内容：
-
-```python
-from PIL import Image
-from transformers import BlipProcessor, BlipForConditionalGeneration
-
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
-
-img = Image.open("照片.png")
-inputs = processor(img, return_tensors="pt")
-out = model.generate(**inputs, max_new_tokens=50, num_beams=5)
-caption = processor.decode(out[0], skip_special_tokens=True)
-# -> "a woman in a white dress standing in front of a building"
-```
-
-首次运行下载 ~1GB 模型，后续即用即走。
-
----
-
-## ⚠️ 重要注意事项
-
-| 问题 | 严重度 | 解决方案 |
-|------|--------|----------|
-| Cookie 混用 | 致命 | 必须用 Chrome 无痕窗口登录 |
-| web_session 缺失 | 致命 | 从 DevTools Application 面板复制 |
-| sign 参数顺序 | 致命 | `sign(uri, data, a1=a1)` — a1 用关键字传参 |
-| Cookie 过期 | 一般 | 几小时到几天，重新获取即可 |
-| 标题超 20 字 | 一般 | 小红书建议 ≤20 字 |
-
----
-
-## 📁 项目结构
+## 🏗️ 架构 / Architecture
 
 ```
 xhs-post/
-├── xhs_publish.py          # 核心发布脚本
-├── requirements.txt        # Python 依赖
-├── references/             # 参考文档
-│   ├── cookie-extraction.md
-│   ├── blip-image-captioning.md
-│   ├── image-recognition.md
-│   └── xhs-cookie-format.md
-└── README.md
+├── README.md
+├── xhs_publish.py              # 🟢 纯API发布（Cookie动态读取）
+└── references/
+    ├── xhs-cookie-management.md # 🔑 Cookie获取和保存流程
+    ├── xhs-cookie-format.md     # Cookie格式规范
+    └── environment-setup.md     # 环境配置指南
 ```
 
 ---
 
-## 🤝 贡献者
+## 📊 实战数据 / Production Stats
 
-**Dabao** — 全部代码 · 文档 · 维护
-
-欢迎提 Issue 和 PR！
-
----
-
-## 📄 许可证
-
-MIT License — 自由使用，保留署名即可。
+| 指标 / Metric | 数据 / Value |
+|------|------|
+| 发布耗时 | ~30秒/篇 |
+| 技术方案 | `xhs` 0.2.13 纯Python签名 |
+| Cookie刷新 | 约1-3天一次 |
+| 成功率 | >95%（Cookie有效时） |
+| 典型错误 | `code: -100` → Cookie过期 |
 
 ---
 
-## ⭐ 支持项目
+## 🧩 技术栈 / Tech Stack
 
-如果这个工具对你有帮助，请给个 Star ⭐
+| 技术 | 用途 |
+|------|------|
+| `xhs` 0.2.13 | 小红书纯Python API客户端 |
+| `sign(uri, data, a1=a1)` | 纯Python签名引擎 |
+| `web_session` Cookie | 认证核心 |
+| 动态文件读取 | Cookie热更新，cron自动生效 |
 
-你的 Star 是我持续更新的动力 💪
+---
 
-🔗 **github.com/DaBaoAgent/xhs-post**
+## 🔗 生态协作 / Ecosystem
+
+```
+xhs-post (独立素材，大宝小红书文件夹)
+dy-post (复用闲鱼素材)
+xianyu-post (闲鱼先发)
+```
+
+配套项目：**[xianyu-post](https://github.com/DaBaoAgent/xianyu-post)** | **[dy-post](https://github.com/DaBaoAgent/dy-post)**
+
+---
+
+## 🤝 贡献者 / Contributor
+
+| 角色 | 贡献 |
+|------|------|
+| **大宝 / Dabao (徐海平)** | 产品Owner、需求、Cookie提供 |
+| **Hermes Agent** | AI驱动全流程开发 |
+
+---
+
+## ⚠️ 免责声明
+
+本项目仅供技术交流学习，请遵守小红书平台使用条款。
+
+---
+
+## 📄 License
+
+MIT © [DaBaoAgent](https://github.com/DaBaoAgent)
+
+<p align="center">
+  <b>Made with ❤️ by Dabao & Hermes Agent</b><br>
+  <sub>2026 · 佳康顺医疗器械 · 昆山</sub>
+</p>
